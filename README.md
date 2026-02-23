@@ -14,8 +14,9 @@ Activate venv before the first start
 source $VENV_DIR/bin/activate
 ```
 
-Test file example
+Add m4a file to the files directory.
 
+Start example:
 ```
-python client.py ./files/pigs.m4a
+python client.py ./files/[file_name].m4a
 ```

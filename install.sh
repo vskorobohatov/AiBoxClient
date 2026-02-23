@@ -35,3 +35,5 @@ pip install --upgrade pip
 
 echo "Installing dependencies..."
 pip install requests
+
+mkdir files
