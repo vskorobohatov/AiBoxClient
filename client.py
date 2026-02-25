@@ -1,14 +1,18 @@
 import sys
 import os
 import requests
+from pathlib import Path
 
 API_URL = "http://localhost:8000/transcribe"
+RESULTS_DIR = Path("results")
 
 
 def send_audio(file_path: str):
     if not os.path.exists(file_path):
         print(f"File not found: {file_path}")
         return
+
+    RESULTS_DIR.mkdir(exist_ok=True)
 
     try:
         with open(file_path, "rb") as audio_file:
@@ -22,18 +26,12 @@ def send_audio(file_path: str):
             print(response.text)
             return
 
-        try:
-            data = response.json()
-        except Exception:
-            print("Server returned non-JSON response:")
-            print(response.text)
-            return
+        output_filename = RESULTS_DIR / "response.wav"
 
-        print("\nTranscription:")
-        print(data.get("transcription", ""))
+        with open(output_filename, "wb") as f:
+            f.write(response.content)
 
-        print("\nLLM response:")
-        print(data.get("llm_response", ""))
+        print(f"\nAudio response saved to: {output_filename}")
 
     except requests.exceptions.RequestException as e:
         print("Connection error:")

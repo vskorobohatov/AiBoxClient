@@ -2,6 +2,9 @@
 
 VENV_DIR="venv"
 
+mkdir -p files
+mkdir -p results
+
 if ! command -v python3 &> /dev/null
 then
     echo "Python3 is not installed!"
@@ -35,5 +38,3 @@ pip install --upgrade pip
 
 echo "Installing dependencies..."
 pip install requests
-
-mkdir files
